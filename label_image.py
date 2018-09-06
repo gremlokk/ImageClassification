@@ -6,15 +6,14 @@ from matplotlib import pyplot as plt
 from PIL import Image
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
-label_lines = [line.rstrip() for line in tf.gfile.GFile("retrained_labels.txt")]
+label_lines = [line.rstrip() for line in tf.gfile.GFile("retrained_labels.txt")]#load labels
 
-# Load unpersists graph from file
-with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:
+with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:# Load unpersists graph from file
 	graph_def = tf.GraphDef()
 	graph_def.ParseFromString(f.read())
 	tf.import_graph_def(graph_def, name='')
 
-def load_image_into_numpy_array(image):
+def load_image_into_numpy_array(image):#Load image into numpy array
 	(im_width, im_height) = image.size
 	return np.array(image.getdata()).reshape((im_height, im_width, 3)).astype(np.uint8)
 
@@ -22,12 +21,12 @@ PATH_TO_TEST_IMAGES_DIR = os.path.join(os.getcwd(), 'test_images')
 TEST_IMAGE_PATHS = []
 IMAGE_SIZE = (6, 4)
 
-for file in os.listdir(PATH_TO_TEST_IMAGES_DIR):
+for file in os.listdir(PATH_TO_TEST_IMAGES_DIR):#finds the path for test images.
 	if file.endswith('.jpg'):
 		data = os.path.join(PATH_TO_TEST_IMAGES_DIR, file)
 		TEST_IMAGE_PATHS.append(data)
 		
-with tf.Session() as sess:
+with tf.Session() as sess:#predicts what image could be based on model
 	for image_path in TEST_IMAGE_PATHS: 
 		softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
 		try:
