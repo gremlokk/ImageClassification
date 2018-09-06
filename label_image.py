@@ -1,6 +1,5 @@
 #!/usr/bin/python
 import os, sys
-
 import tensorflow as tf
 import numpy as np
 from matplotlib import pyplot as plt
@@ -27,8 +26,7 @@ for file in os.listdir(PATH_TO_TEST_IMAGES_DIR):
 	if file.endswith('.jpg'):
 		data = os.path.join(PATH_TO_TEST_IMAGES_DIR, file)
 		TEST_IMAGE_PATHS.append(data)
-		#TEST_IMAGE_PATHS.append(tf.gfile.FastGFile(data, 'rb').read())
-
+		
 with tf.Session() as sess:
 	for image_path in TEST_IMAGE_PATHS: 
 		softmax_tensor = sess.graph.get_tensor_by_name('final_result:0')
