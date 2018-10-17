@@ -4,8 +4,8 @@ import tensorflow as tf
 import numpy as np
 from matplotlib import pyplot as plt
 from PIL import Image
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 label_lines = [line.rstrip() for line in tf.gfile.GFile("retrained_labels.txt")]#load labels
 
 with tf.gfile.FastGFile("retrained_graph.pb", 'rb') as f:# Load unpersists graph from file
